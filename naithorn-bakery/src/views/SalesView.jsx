@@ -31,15 +31,7 @@ export default function SalesView() {
       supabase.from('deliveries')
         .select('*, items:delivery_items(*, products(name))')
         .eq('status', 'arrived'),
-      supabase.from('sales')
-        .select(`
-          *,
-          customer:customers(name),
-          product:products(name),
-          sales_person:profiles!sales_person_id(name)
-        `)
-        .gte('created_at', today + 'T00:00:00')
-        .order('created_at', { ascending: false }),
+      supabase.from('sales').select('*')
     ])
     if (prods.data)  setProducts(prods.data)
     if (inv.data)    setInventory(inv.data)
